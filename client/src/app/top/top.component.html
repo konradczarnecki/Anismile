@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div id="banner">
+    anismile
+  </div>
+  <div id="front" #bannerFront [ngStyle]="{'background-position' : bannerPosition.x + 'px ' + bannerPosition.y + 'px', 'background-image' : 'url(' + bannerLinks[bannerImage[0]] + ')' }"></div>
+  <div id="back" #bannerBack [ngStyle]="{'background-position' : bannerPosition.x + 'px ' + bannerPosition.y + 'px', 'background-image' : 'url(' + bannerLinks[bannerImage[1]] + ')' }"></div>
+  <div id="bar">
+    <div class="menuLink" [fade]="highlightColor">Categories</div>
+    <div class="menuLink" [fade]="highlightColor">Animals</div>
+    <div class="menuLink" [fade]="highlightColor">Smileys</div>
+    <div class="menuLink" [fade]="highlightColor">Profile</div>
+  </div>
+</div>

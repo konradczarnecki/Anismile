@@ -1,0 +1,72 @@
+@import '../variables';
+
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 60% 1fr;
+  grid-template-rows: 1fr 50px;
+  grid-template-areas: "left-margin banner right-margin"
+                       "left-margin bar    right-margin";
+  align-items: stretch;
+  justify-items: stretch;
+
+  font-family: $font;
+}
+
+#back {
+  grid-area: banner;
+  z-index: 1;
+  margin: 10px 0;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a4/White-tiger-2407799_1280.jpg);
+  opacity: 0;
+  border-radius: 7px;
+}
+
+#front {
+  grid-area: banner;
+  z-index: 2;
+  margin: 10px 0;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/a/a4/White-tiger-2407799_1280.jpg);
+  opacity: 0.8;
+  border-radius: 7px;
+}
+
+#banner {
+  grid-area: banner;
+  padding: 20px;
+
+  text-align: center;
+  font-size: 120px;
+  transform: scale(1.3, 1);
+  font-family: $font;
+  color: #ebebeb;
+  z-index: 3;
+}
+
+#bar {
+
+  grid-area: bar;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.menuLink {
+  color: $font-clr;
+  font-size: 25px;
+  display:grid;
+  justify-items: center;
+  align-items: center;
+  background-color: rgba(255,255,255,0.2);
+  //border-radius: 5px;
+  margin-top: 5px;
+}
+
+.menuLink:hover {
+  cursor: pointer;
+  //background-color: rgba(149, 112, 160, 0.1);
+}
+

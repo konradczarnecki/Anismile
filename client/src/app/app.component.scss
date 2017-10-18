@@ -1,0 +1,21 @@
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  grid-template-rows: 30% 1fr;
+  grid-template-areas: "top" "main";
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+app-top {
+  grid-area: top;
+}
+
+.main {
+  grid-area: main;
+}

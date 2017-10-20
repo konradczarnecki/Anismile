@@ -1,8 +1,8 @@
-import { FadeDirective } from './fade.directive';
+import { FadeHighlightDirective } from './fade.directive';
 
-describe('FadeDirective', () => {
+describe('FadeHighlightDirective', () => {
   it('should create an instance', () => {
-    const directive = new FadeDirective();
+    const directive = new FadeHighlightDirective();
     expect(directive).toBeTruthy();
   });
 });

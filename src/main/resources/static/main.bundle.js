@@ -118,7 +118,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__top_top_component__["a" /* TopComponent */],
             __WEBPACK_IMPORTED_MODULE_5__categories_categories_component__["a" /* CategoriesComponent */],
             __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__["a" /* BrowseComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__fade_directive__["a" /* FadeDirective */]
+            __WEBPACK_IMPORTED_MODULE_7__fade_directive__["a" /* FadeHighlightDirective */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -260,7 +260,7 @@ CategoriesComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FadeDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FadeHighlightDirective; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs__ = __webpack_require__("../../../../animejs/anime.min.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_animejs__);
@@ -275,48 +275,61 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var FadeDirective = (function () {
-    function FadeDirective(el) {
+var FadeHighlightDirective = (function () {
+    function FadeHighlightDirective(el) {
         this.el = el;
+        this.onElement = false;
+        this.duration = 300;
     }
-    FadeDirective.prototype.highlight = function () {
-        this.animate(this.fade);
+    FadeHighlightDirective.prototype.highlight = function () {
+        var _this = this;
+        this.onElement = true;
+        setTimeout(function () {
+            if (_this.onElement == true) {
+                _this.entered = Date.now();
+                _this.targetColor = _this.fade;
+                _this.animate();
+            }
+        }, 25);
     };
-    FadeDirective.prototype.unhighlight = function () {
-        this.animate('rgba(255,255,255,0.1)');
+    FadeHighlightDirective.prototype.unhighlight = function () {
+        this.onElement = false;
+        this.targetColor = 'rgba(255,255,255,0.1)';
+        var timeout = Date.now() - this.entered;
+        setTimeout(this.animate.bind(this), this.duration - timeout);
     };
-    FadeDirective.prototype.animate = function (to) {
+    FadeHighlightDirective.prototype.animate = function () {
         __WEBPACK_IMPORTED_MODULE_1_animejs__({
             targets: this.el.nativeElement,
-            backgroundColor: to,
-            duration: 300,
+            backgroundColor: this.targetColor,
+            duration: this.duration,
             easing: 'linear'
         });
     };
-    return FadeDirective;
+    return FadeHighlightDirective;
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
     __metadata("design:type", String)
-], FadeDirective.prototype, "fade", void 0);
+], FadeHighlightDirective.prototype, "fade", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */])('mouseenter'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], FadeDirective.prototype, "highlight", null);
+], FadeHighlightDirective.prototype, "highlight", null);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */])('mouseleave'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], FadeDirective.prototype, "unhighlight", null);
-FadeDirective = __decorate([
+], FadeHighlightDirective.prototype, "unhighlight", null);
+FadeHighlightDirective = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */])({
         selector: '[fade]'
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object])
-], FadeDirective);
+], FadeHighlightDirective);
 
 var _a;
 //# sourceMappingURL=fade.directive.js.map
@@ -326,7 +339,7 @@ var _a;
 /***/ "../../../../../src/app/top/top.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <div id=\"banner\">\n    anismile\n  </div>\n  <div id=\"frame\">\n    <img id=\"front\" src=\"\" #bannerFront/>\n    <img id=\"back\" src=\"\" #bannerBack/>\n  </div>\n  <div id=\"bar\">\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Categories</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Animals</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Smileys</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Profile</div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"wrapper\">\r\n  <div id=\"banner\">\r\n    anismile\r\n  </div>\r\n  <div id=\"frame\">\r\n    <img id=\"front\" src=\"\" #bannerFront/>\r\n    <img id=\"back\" src=\"\" #bannerBack/>\r\n  </div>\r\n  <div id=\"bar\">\r\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Categories</div>\r\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Animals</div>\r\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Smileys</div>\r\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Profile</div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -394,18 +407,17 @@ var TopComponent = (function () {
             complete: function () {
                 var target = _this.frontLayerActive ? _this.bannerFront.nativeElement : _this.bannerBack.nativeElement;
                 clearInterval(_this.changeImgInterId);
-                setTimeout(_this.changeImage.bind(_this), 2000);
-                setTimeout(_this.animate.bind(_this), 2000);
-                _this.changeImgInterId = setInterval(_this.changeImage.bind(_this), 9000);
-                // anime({
-                //   targets : target,
-                //   opacity : 0,
-                //   duration : this.transitionTime,
-                //   easing : 'linear',
-                //   complete : () => {
-                //
-                //   }
-                // })
+                __WEBPACK_IMPORTED_MODULE_1_animejs__({
+                    targets: target,
+                    opacity: 0,
+                    duration: _this.transitionTime,
+                    easing: 'linear',
+                    complete: function () {
+                        setTimeout(_this.changeImage.bind(_this), 2000);
+                        setTimeout(_this.animate.bind(_this), 2000);
+                        _this.changeImgInterId = setInterval(_this.changeImage.bind(_this), 9000);
+                    }
+                });
             }
         });
     };

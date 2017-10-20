@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as anime from 'animejs';
 
-import { FadeDirective } from "../fade.directive";
+import { FadeHighlightDirective } from "../fade.directive";
 import {environment} from "../../environments/environment";
 
 @Component({

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { TopComponent } from './top/top.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BrowseComponent } from './browse/browse.component';
-import { FadeDirective } from './fade.directive';
+import { FadeHighlightDirective } from './fade.directive';
 import {HttpModule} from "@angular/http";
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
     TopComponent,
     CategoriesComponent,
     BrowseComponent,
-    FadeDirective
+    FadeHighlightDirective
   ],
   imports: [
     BrowserModule,

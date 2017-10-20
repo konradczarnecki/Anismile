@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as anime from 'animejs';
 
 import { FadeDirective } from "../fade.directive";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-top',
@@ -15,54 +16,46 @@ export class TopComponent implements OnInit {
 
   highlightColor = 'rgba(149, 112, 160, 0.1)';
 
-  bannerLinks: string[] = [
-    "http://awallpapersimages.com/wp-content/uploads/2016/07/Jungle-Pictures-HD-Wallpapers.jpg",
-    "http://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_giraffe_1_0.jpg",
-    "http://news.nationalgeographic.com/content/dam/news/2016/02/24/01highanimals.jpg",
-    "https://www.cambridgema.gov/~/media/Images/sharedphotos/departmentphotos/animal.jpg",
-    "http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/4n/b0/p04nb0mq.jpg",
-  ];
-
-  idx: number;
-  duration = 5000;
+  duration = 50000;
   transitionTime = 2000;
   frontLayerActive: boolean;
-  inter: number;
+  changeImgInterId: number;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.idx = 1;
-    this.bannerFront.nativeElement.src = this.bannerLinks[0];
-    this.bannerBack.nativeElement.src = this.bannerLinks[1];
+    let url = environment.apiurl + "/images/banner?ran=";
+    this.bannerFront.nativeElement.src = url + Date.now();
+    this.bannerBack.nativeElement.src = url + Date.now() + 1;
+
     this.frontLayerActive = true;
+    this.changeImgInterId = setInterval(this.changeImage.bind(this), 9000);
     this.animate();
-    this.inter = setInterval(this.changeImage.bind(this), 9000);
   }
 
   animate() {
 
     anime({
       targets : [this.bannerFront.nativeElement, this.bannerBack.nativeElement],
-      translateX : [0, -650],
-      translateY : [0, -250],
-      duration : 49000,
+      translateX : [0, -950],
+      translateY : [0, -450],
+      duration : this.duration,
       easing : 'linear',
       complete : () => {
 
         let target = this.frontLayerActive ? this.bannerFront.nativeElement : this.bannerBack.nativeElement;
-        clearInterval(this.inter);
+        clearInterval(this.changeImgInterId);
 
         anime({
           targets : target,
           opacity : 0,
-          duration : 3000,
+          duration : this.transitionTime,
           easing : 'linear',
           complete : () => {
             setTimeout(this.changeImage.bind(this), 2000);
             setTimeout(this.animate.bind(this), 2000);
-            this.inter = setInterval(this.changeImage.bind(this), 9000);
+            this.changeImgInterId = setInterval(this.changeImage.bind(this), 9000);
           }
         })
       }
@@ -77,27 +70,24 @@ export class TopComponent implements OnInit {
     anime({
       targets : this.bannerFront.nativeElement,
       opacity : frontOp,
-      duration : 3000,
+      duration : this.transitionTime,
       easing : 'linear',
       complete : () => {
-        let img = ++this.idx % 5;
-        if(frontOp == 0){
-          this.bannerFront.nativeElement.src = this.bannerLinks[img]
-        } else {
-          this.bannerBack.nativeElement.src = this.bannerLinks[img]
-        }
+
+        let layerToChange = !this.frontLayerActive ? this.bannerFront : this.bannerBack;
+        let timestamp = Date.now();
+
+        layerToChange.nativeElement.src = environment.apiurl + "/images/banner?ran=" + timestamp;
       }
     });
 
     anime({
       targets : this.bannerBack.nativeElement,
       opacity : backOp,
-      duration : 3000,
+      duration : this.transitionTime,
       easing : 'linear'
     });
 
     this.frontLayerActive = !this.frontLayerActive;
   }
-
-
 }

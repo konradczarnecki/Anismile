@@ -64,6 +64,7 @@ task buildFront {
 }
 
 bootRun.dependsOn buildFront
+build.dependsOn copyWebcontent
 jar.mustRunAfter copyWebcontent
 
 

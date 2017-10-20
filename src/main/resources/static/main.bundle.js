@@ -356,6 +356,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs__ = __webpack_require__("../../../../animejs/anime.min.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_animejs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -367,49 +368,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var TopComponent = (function () {
     function TopComponent() {
         this.highlightColor = 'rgba(149, 112, 160, 0.1)';
-        this.bannerLinks = [
-            "http://awallpapersimages.com/wp-content/uploads/2016/07/Jungle-Pictures-HD-Wallpapers.jpg",
-            "http://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_giraffe_1_0.jpg",
-            "http://news.nationalgeographic.com/content/dam/news/2016/02/24/01highanimals.jpg",
-            "https://www.cambridgema.gov/~/media/Images/sharedphotos/departmentphotos/animal.jpg",
-            "http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/4n/b0/p04nb0mq.jpg",
-        ];
-        this.duration = 5000;
+        this.duration = 50000;
         this.transitionTime = 2000;
     }
     TopComponent.prototype.ngOnInit = function () {
-        this.idx = 1;
-        this.bannerFront.nativeElement.src = this.bannerLinks[0];
-        this.bannerBack.nativeElement.src = this.bannerLinks[1];
+        var url = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiurl + "/images/banner?ran=";
+        this.bannerFront.nativeElement.src = url + Date.now();
+        this.bannerBack.nativeElement.src = url + Date.now() + 1;
         this.frontLayerActive = true;
+        this.changeImgInterId = setInterval(this.changeImage.bind(this), 9000);
         this.animate();
-        this.inter = setInterval(this.changeImage.bind(this), 9000);
     };
     TopComponent.prototype.animate = function () {
         var _this = this;
         __WEBPACK_IMPORTED_MODULE_1_animejs__({
             targets: [this.bannerFront.nativeElement, this.bannerBack.nativeElement],
-            translateX: [0, -650],
-            translateY: [0, -250],
-            duration: 49000,
+            translateX: [0, -950],
+            translateY: [0, -450],
+            duration: this.duration,
             easing: 'linear',
             complete: function () {
                 var target = _this.frontLayerActive ? _this.bannerFront.nativeElement : _this.bannerBack.nativeElement;
-                clearInterval(_this.inter);
-                __WEBPACK_IMPORTED_MODULE_1_animejs__({
-                    targets: target,
-                    opacity: 0,
-                    duration: 3000,
-                    easing: 'linear',
-                    complete: function () {
-                        setTimeout(_this.changeImage.bind(_this), 2000);
-                        setTimeout(_this.animate.bind(_this), 2000);
-                        _this.inter = setInterval(_this.changeImage.bind(_this), 9000);
-                    }
-                });
+                clearInterval(_this.changeImgInterId);
+                setTimeout(_this.changeImage.bind(_this), 2000);
+                setTimeout(_this.animate.bind(_this), 2000);
+                _this.changeImgInterId = setInterval(_this.changeImage.bind(_this), 9000);
+                // anime({
+                //   targets : target,
+                //   opacity : 0,
+                //   duration : this.transitionTime,
+                //   easing : 'linear',
+                //   complete : () => {
+                //
+                //   }
+                // })
             }
         });
     };
@@ -420,22 +416,18 @@ var TopComponent = (function () {
         __WEBPACK_IMPORTED_MODULE_1_animejs__({
             targets: this.bannerFront.nativeElement,
             opacity: frontOp,
-            duration: 3000,
+            duration: this.transitionTime,
             easing: 'linear',
             complete: function () {
-                var img = ++_this.idx % 5;
-                if (frontOp == 0) {
-                    _this.bannerFront.nativeElement.src = _this.bannerLinks[img];
-                }
-                else {
-                    _this.bannerBack.nativeElement.src = _this.bannerLinks[img];
-                }
+                var layerToChange = !_this.frontLayerActive ? _this.bannerFront : _this.bannerBack;
+                var timestamp = Date.now();
+                layerToChange.nativeElement.src = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiurl + "/images/banner?ran=" + timestamp;
             }
         });
         __WEBPACK_IMPORTED_MODULE_1_animejs__({
             targets: this.bannerBack.nativeElement,
             opacity: backOp,
-            duration: 3000,
+            duration: this.transitionTime,
             easing: 'linear'
         });
         this.frontLayerActive = !this.frontLayerActive;

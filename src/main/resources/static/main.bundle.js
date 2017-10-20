@@ -32,7 +32,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 30% 1fr;\n      grid-template-rows: 30% 1fr;\n  grid-template-areas: \"top main\"; }\n\napp-top {\n  grid-area: top; }\n\n.main {\n  grid-area: main; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 30% 1fr;\n      grid-template-rows: 30% 1fr;\n  grid-template-areas: \"top\" \"main\";\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\napp-top {\n  grid-area: top; }\n\n.main {\n  grid-area: main; }\n", ""]);
 
 // exports
 
@@ -85,6 +85,8 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__top_top_component__ = __webpack_require__("../../../../../src/app/top/top.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__categories_categories_component__ = __webpack_require__("../../../../../src/app/categories/categories.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__ = __webpack_require__("../../../../../src/app/browse/browse.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__fade_directive__ = __webpack_require__("../../../../../src/app/fade.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98,9 +100,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var routes = [
-    { path: '/categories', component: __WEBPACK_IMPORTED_MODULE_5__categories_categories_component__["a" /* CategoriesComponent */] },
-    { path: '/browse', component: __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__["a" /* BrowseComponent */] }
+    { path: 'categories', component: __WEBPACK_IMPORTED_MODULE_5__categories_categories_component__["a" /* CategoriesComponent */] },
+    { path: 'browse', component: __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__["a" /* BrowseComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -113,11 +117,13 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_4__top_top_component__["a" /* TopComponent */],
             __WEBPACK_IMPORTED_MODULE_5__categories_categories_component__["a" /* CategoriesComponent */],
-            __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__["a" /* BrowseComponent */]
+            __WEBPACK_IMPORTED_MODULE_6__browse_browse_component__["a" /* BrowseComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__fade_directive__["a" /* FadeDirective */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(routes)
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(routes),
+            __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* HttpModule */]
         ],
         providers: [],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
@@ -250,10 +256,77 @@ CategoriesComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../src/app/fade.directive.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FadeDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs__ = __webpack_require__("../../../../animejs/anime.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_animejs__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var FadeDirective = (function () {
+    function FadeDirective(el) {
+        this.el = el;
+    }
+    FadeDirective.prototype.highlight = function () {
+        this.animate(this.fade);
+    };
+    FadeDirective.prototype.unhighlight = function () {
+        this.animate('rgba(255,255,255,0.1)');
+    };
+    FadeDirective.prototype.animate = function (to) {
+        __WEBPACK_IMPORTED_MODULE_1_animejs__({
+            targets: this.el.nativeElement,
+            backgroundColor: to,
+            duration: 300,
+            easing: 'linear'
+        });
+    };
+    return FadeDirective;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+    __metadata("design:type", String)
+], FadeDirective.prototype, "fade", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */])('mouseenter'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], FadeDirective.prototype, "highlight", null);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* HostListener */])('mouseleave'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], FadeDirective.prototype, "unhighlight", null);
+FadeDirective = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* Directive */])({
+        selector: '[fade]'
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object])
+], FadeDirective);
+
+var _a;
+//# sourceMappingURL=fade.directive.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/top/top.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <div id=\"banner\">\n    <h2>COOL ANIMALS</h2>\n    <h1>anismile</h1>\n  </div>\n  <div id=\"bar\">\n    <div class=\"menuLink\">Categories</div>\n    <div class=\"menuLink\">MyAnimals</div>\n    <div class=\"menuLink\">GetSmileys</div>\n    <div class=\"menuLink\">MyProfile</div>\n    <div class=\"panel\">\n\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"wrapper\">\n  <div id=\"banner\">\n    anismile\n  </div>\n  <div id=\"frame\">\n    <img id=\"front\" src=\"\" #bannerFront/>\n    <img id=\"back\" src=\"\" #bannerBack/>\n  </div>\n  <div id=\"bar\">\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Categories</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Animals</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Smileys</div>\n    <div class=\"menuLink\" [fade]=\"highlightColor\">Profile</div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -262,10 +335,10 @@ module.exports = "<div class=\"wrapper\">\n  <div id=\"banner\">\n    <h2>COOL A
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Karla);", ""]);
 
 // module
-exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 80% 1fr;\n      grid-template-columns: 1fr 80% 1fr;\n  -ms-grid-rows: 1fr 50px;\n      grid-template-rows: 1fr 50px;\n  grid-template-areas: \"left-margin banner right-margin\"\r \"left-margin panel  right-margin\";\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  font-family: \"Helvetica\"; }\n\n#banner {\n  grid-area: banner;\n  padding: 20px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 30% 1fr;\n      grid-template-columns: 30% 1fr;\n  -ms-grid-rows: 15% 1fr;\n      grid-template-rows: 15% 1fr;\n  grid-template-areas: \"small-h space\" \"big-h big-h\";\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n  #banner h2 {\n    grid-area: small-h; }\n  #banner h1 {\n    grid-area: big-h; }\n", ""]);
+exports.push([module.i, ".wrapper {\n  width: 100%;\n  min-height: 100%;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 60% 1fr;\n      grid-template-columns: 1fr 60% 1fr;\n  -ms-grid-rows: 1fr 50px;\n      grid-template-rows: 1fr 50px;\n  grid-template-areas: \"left-margin banner right-margin\"\r \"left-margin bar    right-margin\";\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch;\n  font-family: \"Karla\"; }\n\n#banner {\n  grid-area: banner;\n  padding: 20px;\n  text-align: center;\n  font-size: 120px;\n  -webkit-transform: scale(1.3, 1);\n          transform: scale(1.3, 1);\n  font-family: \"Karla\";\n  color: #ebebeb;\n  z-index: 3; }\n\n#front {\n  opacity: 0.8;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n#back {\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n#frame {\n  grid-area: banner;\n  border-radius: 7px;\n  margin: 10px 0;\n  overflow: hidden;\n  width: 60vw;\n  height: 180px;\n  position: relative; }\n\n#bar {\n  grid-area: bar;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: (1fr)[4];\n      grid-template-columns: repeat(4, 1fr);\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  -ms-grid-column-align: stretch;\n      justify-items: stretch; }\n\n.menuLink {\n  color: rgba(122, 122, 122, 0.8);\n  font-size: 25px;\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-column-align: center;\n      justify-items: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: rgba(255, 255, 255, 0.2);\n  margin-top: 5px; }\n\n.menuLink:hover {\n  cursor: pointer; }\n", ""]);
 
 // exports
 
@@ -281,6 +354,8 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs__ = __webpack_require__("../../../../animejs/anime.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_animejs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_animejs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -291,13 +366,90 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var TopComponent = (function () {
     function TopComponent() {
+        this.highlightColor = 'rgba(149, 112, 160, 0.1)';
+        this.bannerLinks = [
+            "http://awallpapersimages.com/wp-content/uploads/2016/07/Jungle-Pictures-HD-Wallpapers.jpg",
+            "http://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_giraffe_1_0.jpg",
+            "http://news.nationalgeographic.com/content/dam/news/2016/02/24/01highanimals.jpg",
+            "https://www.cambridgema.gov/~/media/Images/sharedphotos/departmentphotos/animal.jpg",
+            "http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/4n/b0/p04nb0mq.jpg",
+        ];
+        this.duration = 5000;
+        this.transitionTime = 2000;
     }
     TopComponent.prototype.ngOnInit = function () {
+        this.idx = 1;
+        this.bannerFront.nativeElement.src = this.bannerLinks[0];
+        this.bannerBack.nativeElement.src = this.bannerLinks[1];
+        this.frontLayerActive = true;
+        this.animate();
+        this.inter = setInterval(this.changeImage.bind(this), 9000);
+    };
+    TopComponent.prototype.animate = function () {
+        var _this = this;
+        __WEBPACK_IMPORTED_MODULE_1_animejs__({
+            targets: [this.bannerFront.nativeElement, this.bannerBack.nativeElement],
+            translateX: [0, -650],
+            translateY: [0, -250],
+            duration: 49000,
+            easing: 'linear',
+            complete: function () {
+                var target = _this.frontLayerActive ? _this.bannerFront.nativeElement : _this.bannerBack.nativeElement;
+                clearInterval(_this.inter);
+                __WEBPACK_IMPORTED_MODULE_1_animejs__({
+                    targets: target,
+                    opacity: 0,
+                    duration: 3000,
+                    easing: 'linear',
+                    complete: function () {
+                        setTimeout(_this.changeImage.bind(_this), 2000);
+                        setTimeout(_this.animate.bind(_this), 2000);
+                        _this.inter = setInterval(_this.changeImage.bind(_this), 9000);
+                    }
+                });
+            }
+        });
+    };
+    TopComponent.prototype.changeImage = function () {
+        var _this = this;
+        var frontOp = this.frontLayerActive ? 0 : 0.8;
+        var backOp = !this.frontLayerActive ? 0 : 0.8;
+        __WEBPACK_IMPORTED_MODULE_1_animejs__({
+            targets: this.bannerFront.nativeElement,
+            opacity: frontOp,
+            duration: 3000,
+            easing: 'linear',
+            complete: function () {
+                var img = ++_this.idx % 5;
+                if (frontOp == 0) {
+                    _this.bannerFront.nativeElement.src = _this.bannerLinks[img];
+                }
+                else {
+                    _this.bannerBack.nativeElement.src = _this.bannerLinks[img];
+                }
+            }
+        });
+        __WEBPACK_IMPORTED_MODULE_1_animejs__({
+            targets: this.bannerBack.nativeElement,
+            opacity: backOp,
+            duration: 3000,
+            easing: 'linear'
+        });
+        this.frontLayerActive = !this.frontLayerActive;
     };
     return TopComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('bannerBack'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+], TopComponent.prototype, "bannerBack", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('bannerFront'),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _b || Object)
+], TopComponent.prototype, "bannerFront", void 0);
 TopComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-top',
@@ -307,6 +459,7 @@ TopComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], TopComponent);
 
+var _a, _b;
 //# sourceMappingURL=top.component.js.map
 
 /***/ }),
@@ -322,7 +475,8 @@ TopComponent = __decorate([
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 // The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: false
+    production: false,
+    apiurl: "http://localhost:8080"
 };
 //# sourceMappingURL=environment.js.map
 

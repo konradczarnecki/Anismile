@@ -1,11 +1,13 @@
 @import '../variables';
 
+$width: 65vw;
+
 .wrapper {
   width: 100%;
   min-height: 100%;
 
   display: grid;
-  grid-template-columns: 1fr 60% 1fr;
+  grid-template-columns: 1fr $width 1fr;
   grid-template-rows: 1fr 50px;
   grid-template-areas: "left-margin banner right-margin"
                        "left-margin bar    right-margin";
@@ -47,7 +49,7 @@
   border-radius: 7px;
   margin: 10px 0;
   overflow: hidden;
-  width: 60vw;
+  width: $width;
   height: 180px;
   position: relative;
 }

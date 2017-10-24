@@ -279,7 +279,7 @@ var FadeHighlightDirective = (function () {
     function FadeHighlightDirective(el) {
         this.el = el;
         this.onElement = false;
-        this.duration = 300;
+        this.duration = 150;
     }
     FadeHighlightDirective.prototype.highlight = function () {
         var _this = this;
@@ -290,7 +290,7 @@ var FadeHighlightDirective = (function () {
                 _this.targetColor = _this.fade;
                 _this.animate();
             }
-        }, 25);
+        }, 30);
     };
     FadeHighlightDirective.prototype.unhighlight = function () {
         this.onElement = false;
@@ -303,7 +303,8 @@ var FadeHighlightDirective = (function () {
             targets: this.el.nativeElement,
             backgroundColor: this.targetColor,
             duration: this.duration,
-            easing: 'linear'
+            easing: 'easeInOutQuad',
+            elasticity: 0
         });
     };
     return FadeHighlightDirective;

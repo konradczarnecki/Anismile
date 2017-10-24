@@ -29,7 +29,7 @@ export class FadeHighlightDirective {
         this.targetColor = this.fade;
         this.animate();
       }
-    }, 25)
+    }, 30)
   }
 
   @HostListener('mouseleave') unhighlight(){
@@ -47,7 +47,8 @@ export class FadeHighlightDirective {
       targets: this.el.nativeElement,
       backgroundColor: this.targetColor,
       duration: this.duration,
-      easing: 'linear'
+      easing: 'linear',
+      elasticity : 0
     })
   }
 }

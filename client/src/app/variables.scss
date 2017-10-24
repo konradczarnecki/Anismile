@@ -8,3 +8,6 @@ $clr: rgb(252, 232, 255);
 $font: 'Karla';
 $url: 'https://fonts.googleapis.com/css?family=' + $font;
 @import url($url);
+
+$tile-width: 150px;
+$tile-height: 185px;

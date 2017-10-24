@@ -1,0 +1,38 @@
+@import '../variables';
+
+.wrapper {
+  width: $tile-width;
+  min-height: $tile-height;
+  border: solid 1px transparent;
+  border-radius: 3px;
+  text-align: center;
+  font-family: $font;
+  color: $font-clr;
+}
+
+.wrapper:hover {
+  border: solid 1px $highlight-clr;
+  cursor: pointer;
+
+  #thumbnail {
+    opacity: 1;
+  }
+}
+
+$image-size: $tile-width - 30px;
+
+#thumbnail {
+  width: $image-size;
+  height: $image-size;
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
+#name {
+  font-size: 19px;
+}
+
+#price {
+  font-size: 15px;
+}
+

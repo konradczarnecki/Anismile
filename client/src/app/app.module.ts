@@ -8,10 +8,12 @@ import { CategoriesComponent } from './categories/categories.component';
 import { BrowseComponent } from './browse/browse.component';
 import { FadeHighlightDirective } from './fade.directive';
 import {HttpModule} from "@angular/http";
+import { PreviewComponent } from './preview/preview.component';
+import { OwnedComponent } from './owned/owned.component';
 
 const routes: Routes = [
   { path : 'categories', component : CategoriesComponent },
-  { path : 'browse',     component : BrowseComponent }
+  { path : 'owned',     component : OwnedComponent }
 ];
 
 @NgModule({
@@ -20,7 +22,9 @@ const routes: Routes = [
     TopComponent,
     CategoriesComponent,
     BrowseComponent,
-    FadeHighlightDirective
+    FadeHighlightDirective,
+    PreviewComponent,
+    OwnedComponent
   ],
   imports: [
     BrowserModule,

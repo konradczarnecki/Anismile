@@ -53,8 +53,8 @@ export class TopComponent implements OnInit {
           duration : this.transitionTime,
           easing : 'linear',
           complete : () => {
-            setTimeout(this.changeImage.bind(this), 2000);
-            setTimeout(this.animate.bind(this), 2000);
+            setTimeout(this.changeImage.bind(this), this.transitionTime);
+            setTimeout(this.animate.bind(this), this.transitionTime);
             this.changeImgInterId = setInterval(this.changeImage.bind(this), 9000);
           }
         })

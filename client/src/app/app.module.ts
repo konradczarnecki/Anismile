@@ -5,9 +5,11 @@ import {Router, RouterModule, Routes} from '@angular/router'
 import { AppComponent } from './app.component';
 import { TopComponent } from './top/top.component';
 import { FadeHighlightDirective } from './fade.directive';
-import {HttpModule} from "@angular/http";
+import { HttpModule } from "@angular/http";
 import { PreviewComponent } from './preview/preview.component';
 import { OwnedComponent } from './owned/owned.component';
+import { GridComponent } from './grid/grid.component';
+import { FetchService } from "./fetch.service";
 
 const routes: Routes = [
   { path : 'owned',     component : OwnedComponent }
@@ -19,14 +21,15 @@ const routes: Routes = [
     TopComponent,
     FadeHighlightDirective,
     PreviewComponent,
-    OwnedComponent
+    OwnedComponent,
+    GridComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpModule
   ],
-  providers: [],
+  providers: [FetchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,6 +12,7 @@
 
 .wrapper:hover {
   border: solid 1px $highlight-clr;
+  box-shadow: 1px 1px 7px 0 rgba(206, 206, 206, 0.29);
   cursor: pointer;
 
   #thumbnail {

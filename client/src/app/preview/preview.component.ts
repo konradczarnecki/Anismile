@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-preview',
@@ -7,17 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviewComponent implements OnInit {
 
-  imageSrc: string;
-  name: string;
-  price: string;
+  @Input() id: number;
+  @Input() name: string;
+  @Input() price: string;
+  imageSrc: string
 
-  constructor() {
-    this.imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/d/de/Nokota_Horses_cropped.jpg';
-    this.name = 'Horse';
-    this.price = '1000';
-  }
+  constructor() {}
 
   ngOnInit() {
+    this.imageSrc = environment.apiurl + '/images/animal?id=' + this.id;
   }
 
 }

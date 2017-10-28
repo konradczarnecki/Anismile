@@ -95,7 +95,6 @@ Map<String, String> parseClass(String source){
     return props
 }
 
-
 String buildInterface(Map<String, String> props, String name){
 
     def numberType = ['int', 'float', 'double', 'long', 'Integer', 'Double', 'Float', 'long']

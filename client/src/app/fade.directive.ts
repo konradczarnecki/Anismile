@@ -35,7 +35,7 @@ export class FadeHighlightDirective {
   @HostListener('mouseleave') unhighlight(){
 
     this.onElement = false;
-    this.targetColor = 'rgba(255,255,255,0.1)';
+    this.targetColor = 'rgba(255,255,255,0.05)';
 
     let timeout = Date.now() - this.entered;
     setTimeout(this.animate.bind(this), this.duration - timeout);

@@ -14,7 +14,7 @@ export class TopComponent implements OnInit {
   @ViewChild('bannerBack') bannerBack: ElementRef;
   @ViewChild('bannerFront') bannerFront: ElementRef;
 
-  highlightColor = 'rgba(149, 112, 160, 0.1)';
+  highlightColor = 'rgba(149, 112, 160, 0.05)';
 
   duration = 50000;
   transitionTime = 2000;

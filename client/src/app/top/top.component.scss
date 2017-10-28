@@ -69,13 +69,12 @@ $width: 65vw;
   display:grid;
   justify-items: center;
   align-items: center;
-  background-color: rgba(255,255,255,0.2);
-  //border-radius: 5px;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 5px;
   margin-top: 5px;
 }
 
 .menuLink:hover {
   cursor: pointer;
-  //background-color: rgba(149, 112, 160, 0.1);
 }
 

@@ -2,7 +2,7 @@ package konra.anismile.animal;
 
 import javax.persistence.*;
 
-//!DTO
+//!dto
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -14,6 +14,8 @@ public class Category {
 
     @Column(name = "name")
     private String name;
+
+    public Category(){}
 
     public int getId() {
         return id;

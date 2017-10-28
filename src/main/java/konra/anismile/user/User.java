@@ -1,7 +1,10 @@
 package konra.anismile.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
+//!dto
 @Entity(name = "users")
 public class User {
 
@@ -14,10 +17,10 @@ public class User {
     private String username;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
-    public User() {
-    }
+    public User(){}
 
     public int getId() {
         return id;

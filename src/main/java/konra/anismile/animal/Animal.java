@@ -2,7 +2,7 @@ package konra.anismile.animal;
 
 import javax.persistence.*;
 
-//!DTO
+//!dto
 @Entity
 @Table(name = "animals")
 public class Animal {
@@ -16,7 +16,7 @@ public class Animal {
     private String name;
 
     @Column(name = "description")
-    private String descritpion;
+    private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category")
@@ -24,6 +24,8 @@ public class Animal {
 
     @Column(name = "price")
     private int price;
+
+    public Animal(){}
 
     public int getId() {
         return id;
@@ -41,12 +43,12 @@ public class Animal {
         this.name = name;
     }
 
-    public String getDescritpion() {
-        return descritpion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescritpion(String descritpion) {
-        this.descritpion = descritpion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Category getCategory() {

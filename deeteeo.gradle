@@ -1,0 +1,197 @@
+import groovy.io.FileType
+
+Map<String, String> parseClass(String source){
+
+    List<String> lines = source.readLines()
+    Map<String, String> props = new HashMap<>()
+
+    def regex = [/@JsonGetter\("\w+"\)/, /@JsonProperty\("\w+"\)/]
+
+    for(def exp: regex){
+
+        for(int i = 0; i < lines.size(); i++){
+
+            def getterMatcher = lines.get(i) =~ exp
+
+            if(getterMatcher.find()){
+
+                def propMatcher = getterMatcher.group() =~ /"\w+"/
+                propMatcher.find()
+                String prop = propMatcher.group()
+                prop = prop.substring(1, prop.length() - 1)
+
+                String nextLine = lines.get(i+1)
+                nextLine = nextLine.trim()
+
+                if(nextLine.substring(0,1) == 'p'){
+                    int idx = nextLine.indexOf(" ")
+                    nextLine = nextLine.substring(idx+1)
+                }
+
+                def typeMatcher = nextLine =~ /[\w\[\]]+/
+                typeMatcher.find()
+                String type = typeMatcher.group()
+
+                props.put(prop, type)
+            }
+        }
+    }
+
+    String className
+    int classLine = 0
+
+    for(int i = 0; i < lines.size(); i++){
+        def classMatcher = lines.get(i) =~ /class\s\w+\s/
+
+        if(classMatcher.find()){
+            def nameMatcher = classMatcher.group() =~ /\s\w+\s/
+            nameMatcher.find()
+            className = nameMatcher.group().trim()
+            classLine = i
+            break
+        }
+
+        if(i == lines.size() - 1) throw new Exception()
+    }
+
+    int constructorLine
+
+    for(int i = classLine; i < lines.size(); i++){
+        def constMatcher = lines.get(i) =~ /(${className}\(\))/
+
+        if(constMatcher.find()){
+            constructorLine = i
+        }
+    }
+
+    for(int i = classLine + 1; i < constructorLine; i++){
+
+        String line = lines.get(i)
+        line = line.trim()
+        if(line == '' || line == ' ' || line.substring(0, 1) == '@' || line.substring(0, 1) == '/') continue
+        if(line.indexOf('import') != -1 || line.trim() == "{" || line.trim() == "}") continue
+
+        def skipMatcher = lines.get(i-1) =~ /@JsonProperty\("\w+"\)/
+        if(skipMatcher.find()) continue
+        skipMatcher = lines.get(i-1) =~ /\/\/!jsongetter/
+        if(skipMatcher.find()) continue
+        skipMatcher = lines.get(i-1) =~ /@JsonIgnore/
+        if(skipMatcher.find()) continue
+
+        if(line.substring(0, 1) == 'p'){
+            int idx = line.indexOf(" ")
+            line = line.substring(idx+1)
+        }
+
+        def matcher = line =~ /[\w\[\]]+/
+        matcher.find()
+        String type = matcher.group()
+        matcher.find()
+        String prop = matcher.group()
+
+        props.put(prop, type)
+    }
+
+    return props
+}
+
+
+String buildInterface(Map<String, String> props, String name){
+
+    def numberType = ['int', 'float', 'double', 'long', 'Integer', 'Double', 'Float', 'long']
+    def stringType = ['String', 'char', 'Character']
+    def numberArrayType = numberType.collect { it + '[]'}
+    def stringArrayType = stringType.collect { it + '[]'}
+    def all = numberType + stringType + numberArrayType + stringArrayType
+    def tab = '    '
+
+    Map<String, String> types = new HashMap<>()
+    numberType.forEach{ type -> types.put(type, 'number')}
+    numberArrayType.forEach{ type -> types.put(type, 'number[]')}
+    stringType.forEach{ type -> types.put(type, 'string')}
+    stringArrayType.forEach{ type -> types.put(type, 'string[]')}
+
+    StringBuilder sb = new StringBuilder()
+
+    sb.append('//deeteeo generated interface\n')
+
+    for(Map.Entry<String, String> e: props.entrySet()){
+        if(!all.contains(e.value)){
+            sb.append("import { ${e.value} } from './${e.value.toLowerCase()}.interface';\n")
+        }
+    }
+
+    sb.append("\n")
+
+    sb.append("export interface ${name} {\n")
+
+    for(Map.Entry<String, String> e: props.entrySet()){
+
+        sb.append(tab + e.key + ': ')
+        if(all.contains(e.value)) sb.append(types.get(e.value) + ";\n")
+        else sb.append(e.value + ";\n")
+    }
+
+    sb.append("}")
+
+    return sb.toString()
+}
+
+def writeFile(String source, String path){
+
+    def file = new File(path)
+    file.createNewFile()
+    file.write source
+}
+
+def make(File file, String name, String path) {
+
+    Map props = parseClass(file.text)
+    String source = buildInterface(props, name)
+
+    path += "/${name.toLowerCase()}" + ".interface.ts"
+    writeFile(source, path)
+}
+
+def printProps(Map props){
+
+    for(Map.Entry<String, String> e: props.entrySet()){
+        println(e.key + ' ' + e.value)
+    }
+}
+
+task deetee {
+    group 'build'
+
+    doFirst {
+
+        String path = "${projectDir}/client/src/app/model"
+        def modelDir = new File(path)
+        modelDir.deleteDir()
+        modelDir.mkdir()
+
+        def dir = new File("${projectDir}/src/main/java")
+        dir.eachFileRecurse (FileType.FILES) { file ->
+
+            String[] lines = file.text.readLines()
+            def isDto = false
+            String name
+            for(def line: lines){
+                line = line.trim()
+                def dtoMatcher = line =~ /\/\/!dto/
+                def classMatcher = line =~ /class/
+                if(dtoMatcher.find()) isDto = true
+                if(classMatcher.find()){
+                    if(!isDto) break
+                    def idx = line.indexOf('class')
+                    def classLine = line.substring(idx + 6)
+                    def nameMatcher = classLine =~ /\w+/
+                    nameMatcher.find()
+                    name = nameMatcher.group()
+                }
+            }
+
+            if(isDto) make(file, name, path)
+        }
+    }
+}

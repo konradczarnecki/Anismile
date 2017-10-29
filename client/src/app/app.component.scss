@@ -14,9 +14,15 @@
 
 app-top {
   grid-area: top;
+  z-index: 2;
 }
 
 .main {
   grid-area: main;
   padding-top: 20px;
+}
+
+.stick {
+  position: sticky;
+  top: -205px;
 }

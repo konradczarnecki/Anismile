@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <app-top></app-top>
+  <app-top id="top" [ngClass]="{'stick' : stick}"></app-top>
   <div class="main">
     <router-outlet></router-outlet>
   </div>

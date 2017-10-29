@@ -1,0 +1,2 @@
+create table animals(id int auto_increment, name varchar(50), description text, category int, price int, primary key(id), foreign key(category) references categories(id));
+create table categories(id int auto_increment, name varchar(50), primary key(id));

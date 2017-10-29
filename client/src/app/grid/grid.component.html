@@ -1,0 +1,10 @@
+
+<div class="wrapper">
+  <div class="grid">
+    <app-preview *ngFor="let animal of animals"
+                 [name]="animal.name"
+                 [price]="animal.price"
+                 [id]="animal.id" ></app-preview>
+  </div>
+</div>
+

@@ -1,5 +1,7 @@
 package konra.anismile.animal;
 
+import konra.anismile.animal.category.Category;
+
 import javax.persistence.*;
 
 //!dto

@@ -1,5 +1,6 @@
 package konra.anismile.animal;
 
+import konra.anismile.animal.category.Category;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,5 +35,11 @@ public class AnimalController {
     public Animal getById(@RequestParam(name = "id") Integer id){
 
         return service.getAnimalById(id);
+    }
+
+    @RequestMapping("/categories")
+    public List<Category> getCategories(){
+
+        return service.getCategories();
     }
 }

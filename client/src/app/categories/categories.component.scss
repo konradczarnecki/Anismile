@@ -1,0 +1,22 @@
+@import '../variables';
+
+.wrapper {
+  width: 10vw;
+
+  display: grid;
+  grid-auto-rows: 40px;
+  font-family: $font;
+  color: $font-clr;
+}
+
+.row {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  border-radius: 3px;
+}
+
+.row:hover {
+  border: 1px solid $highlight-clr;
+  cursor: pointer;
+}

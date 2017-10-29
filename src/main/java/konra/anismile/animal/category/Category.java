@@ -1,4 +1,4 @@
-package konra.anismile.animal;
+package konra.anismile.animal.category;
 
 import javax.persistence.*;
 

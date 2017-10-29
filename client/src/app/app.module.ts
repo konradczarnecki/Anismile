@@ -10,6 +10,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { OwnedComponent } from './owned/owned.component';
 import { GridComponent } from './grid/grid.component';
 import { FetchService } from "./fetch.service";
+import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
   { path : 'owned',     component : OwnedComponent }
@@ -22,7 +23,8 @@ const routes: Routes = [
     FadeHighlightDirective,
     PreviewComponent,
     OwnedComponent,
-    GridComponent
+    GridComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

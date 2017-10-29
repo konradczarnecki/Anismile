@@ -5,7 +5,7 @@
   min-height: 100%;
 
   display: grid;
-  grid-template-columns: 15vw 68vw 15vw;
+  grid-template-columns: 15% 70% 15%;
   grid-template-areas: "left-margin center right-margin";
   align-items: stretch;
   justify-items: stretch;
@@ -16,6 +16,7 @@
   //margin: auto;
 
   width: 100%;
+  //margin: auto;
   height: 100%;
   grid-area: center;
   //border: solid 1px black;
@@ -23,7 +24,12 @@
   grid-template-rows: repeat(auto-fill, minmax($tile-height, 1fr));
   grid-template-columns: repeat(auto-fill, minmax($tile-width, 1fr));
   align-items: stretch;
-  justify-items: stretch;
+  justify-items: center;
   grid-column-gap: 5px;
-  grid-row-gap: 10px;
+  grid-row-gap: 5px;
+}
+
+app-categories {
+  grid-area: left-margin;
+  justify-self: center;
 }

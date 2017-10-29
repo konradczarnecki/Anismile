@@ -1,6 +1,6 @@
 
 <div class="wrapper">
-  <app-categories></app-categories>
+  <app-categories id="categories" [ngClass]="{'stick' : stickCategories}"></app-categories>
   <div class="grid">
     <app-preview *ngFor="let animal of animals"
                  [name]="animal.name"

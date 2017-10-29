@@ -11,9 +11,25 @@ export class GridComponent implements OnInit {
 
   animals: Animal[];
 
+  stickCategories: boolean;
+
   constructor(private fetchService: FetchService) { }
 
   ngOnInit() {
+
+    this.stickCategories = false;
+
+    window.addEventListener('scroll', () => {
+
+      if(window.scrollY >= 190){
+        this.stickCategories = true;
+
+        let el: HTMLElement = document.getElementById('categories');
+        let rect = el.getBoundingClientRect();
+        el.style.top = rect.top + 'px';
+        el.style.left = rect.left + 'px';
+      } else this.stickCategories = false;
+    });
 
     this.fetchService.getAllAnimals(0).then(animals => {
       let ext: Animal[] = [];

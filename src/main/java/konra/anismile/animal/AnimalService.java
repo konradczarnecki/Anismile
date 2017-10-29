@@ -24,7 +24,7 @@ public class AnimalService {
     }
 
     public Page<Animal> getAllAnimals(int page){
-        return repository.findAll(new PageRequest(page, 5));
+        return repository.findAll(new PageRequest(page, 40));
     }
 
     public Animal getAnimalById(Integer id) {

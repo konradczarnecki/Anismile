@@ -27,6 +27,9 @@ public class Animal {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "imageSrc")
+    private String imageUrl;
+
     public Animal(){}
 
     public int getId() {
@@ -67,5 +70,13 @@ public class Animal {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

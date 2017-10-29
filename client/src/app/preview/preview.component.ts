@@ -11,12 +11,11 @@ export class PreviewComponent implements OnInit {
   @Input() id: number;
   @Input() name: string;
   @Input() price: string;
-  imageSrc: string
+  @Input() imageSrc: string
 
   constructor() {}
 
   ngOnInit() {
-    this.imageSrc = environment.apiurl + '/images/animal?id=' + this.id;
   }
 
 }

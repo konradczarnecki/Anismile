@@ -38,16 +38,4 @@ public class ImageController {
                 header("Cache-Control", "no-cache").
                 contentLength(arr.length).body(arr);
     }
-
-    @GetMapping(value = "/animal", produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getAnimalPhoto(@RequestParam(name = "id") Integer id) throws IOException {
-
-        Resource rsc = new ClassPathResource("/animals/"+ id +".jpg");
-        InputStream is = rsc.getInputStream();
-        byte[] arr = IOUtils.toByteArray(is);
-
-        return ResponseEntity.ok().
-                header("Cache-Control", "no-cache").
-                contentLength(arr.length).body(arr);
-    }
 }

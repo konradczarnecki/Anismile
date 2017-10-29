@@ -1,0 +1,2 @@
+https://en.wikipedia.org/w/api.php?page=Dog&action=parse&format=json
+

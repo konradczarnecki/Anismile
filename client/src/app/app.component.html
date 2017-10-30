@@ -1,5 +1,7 @@
 <div class="wrapper">
-  <app-top id="top" [ngClass]="{'stick' : stick}"></app-top>
+  <app-top id="top"
+           [ngClass]="{'stick' : stick}"
+           [ngStyle]="{'boxShadow' : '0 2px 12px 0 rgba(180, 180, 180, ' + shadowOp + ')'}"></app-top>
   <div class="main">
     <router-outlet></router-outlet>
   </div>

@@ -21,8 +21,6 @@ export class TopComponent implements OnInit {
   frontLayerActive: boolean;
   changeImgInterId: number;
 
-  topbarSnap: boolean = false;
-
   constructor() { }
 
   ngOnInit() {

@@ -11,9 +11,11 @@ import { OwnedComponent } from './owned/owned.component';
 import { GridComponent } from './grid/grid.component';
 import { FetchService } from "./fetch.service";
 import { CategoriesComponent } from './categories/categories.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path : 'owned',     component : OwnedComponent }
+  { path : 'owned',     component : OwnedComponent },
+  { path : 'login', component : LoginComponent }
 ];
 
 @NgModule({
@@ -24,7 +26,8 @@ const routes: Routes = [
     PreviewComponent,
     OwnedComponent,
     GridComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

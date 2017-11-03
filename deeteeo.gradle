@@ -101,14 +101,18 @@ String buildInterface(Map<String, String> props, String name){
     def stringType = ['String', 'char', 'Character']
     def numberArrayType = numberType.collect { it + '[]'}
     def stringArrayType = stringType.collect { it + '[]'}
+    def numberListType = numberType.collect { "List<${it}>" }
+    def stringListType = stringType.collect { "List<${it}" }
     def all = numberType + stringType + numberArrayType + stringArrayType
     def tab = '    '
 
     Map<String, String> types = new HashMap<>()
     numberType.forEach{ type -> types.put(type, 'number')}
     numberArrayType.forEach{ type -> types.put(type, 'number[]')}
+    numberListType.forEach{ type -> types.put(type, 'number[]')}
     stringType.forEach{ type -> types.put(type, 'string')}
     stringArrayType.forEach{ type -> types.put(type, 'string[]')}
+    stringListType.forEach{ type -> types.put(type, 'string[]')}
 
     StringBuilder sb = new StringBuilder()
 

@@ -9,7 +9,8 @@
   grid-template-rows: 30% 1fr;
   grid-template-areas: "top" "main";
   align-items: stretch;
-  justify-items: stretch;
+  justify-items: center;
+
 }
 
 app-top {

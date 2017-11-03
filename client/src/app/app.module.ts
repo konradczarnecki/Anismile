@@ -12,10 +12,12 @@ import { GridComponent } from './grid/grid.component';
 import { FetchService } from "./fetch.service";
 import { CategoriesComponent } from './categories/categories.component';
 import { LoginComponent } from './login/login.component';
+import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
-  { path : 'owned',     component : OwnedComponent },
-  { path : 'login', component : LoginComponent }
+  { path : 'owned', component : GridComponent },
+  { path : 'login', component : LoginComponent },
+  { path : 'animal/:id', component : DetailsComponent}
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const routes: Routes = [
     OwnedComponent,
     GridComponent,
     CategoriesComponent,
-    LoginComponent
+    LoginComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

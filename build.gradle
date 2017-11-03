@@ -52,13 +52,14 @@ node {
 }
 
 task buildAngular(type: NpmTask){
-	args = ['run', 'build']
+	args = ['run', 'build-jar']
 }
 
 task copyWebcontent(type: Copy){
 	dependsOn buildAngular
 	from "${projectDir}/client/dist" into "${projectDir}/src/main/resources/static"
 	mustRunAfter buildAngular
+	outputs.upToDateWhen { false }
 }
 
 task buildFront {
@@ -70,6 +71,13 @@ if(project.property('build.front') == 'true'){
 	bootRun.dependsOn buildFront
 	build.dependsOn copyWebcontent
 	jar.mustRunAfter copyWebcontent
+}
+
+task runJar(type: Exec) {
+	group 'application'
+	workingDir "${project.buildDir}/libs/"
+	executable 'java'
+	args = ['-jar', "${project.name}.jar"]
 }
 
 

@@ -13,7 +13,16 @@ export class FetchService {
 
     return new Promise<Animal[]>(resolve => {
       this.http.get(environment.apiurl + '/animals/get-all?page=' + page).subscribe(response => {
-        resolve(response.json().content)
+        resolve(response.json().content);
+      })
+    })
+  }
+
+  getAnimal(id: number): Promise<Animal> {
+
+    return new Promise<Animal>(resolve => {
+      this.http.get(environment.apiurl + '/animals/get-by-id?id=' + id).subscribe(response => {
+        resolve(response.json());
       })
     })
   }

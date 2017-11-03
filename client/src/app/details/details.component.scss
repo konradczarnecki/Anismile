@@ -1,0 +1,56 @@
+@import "../variables";
+
+.wrapper {
+  width: 70vw;
+  height: 60vh;
+  justify-self: center;
+
+  display: grid;
+  grid-template-rows: 40px 70px 1fr;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "name name" "photo price" "photo description";
+  align-items: stretch;
+  justify-items: stretch;
+
+  font-family: $font;
+}
+
+div:not(#frame) {
+  padding: 10px;
+}
+
+$img-size: 21vw;
+#frame {
+  width: $img-size;
+  height: $img-size;
+  overflow: hidden;
+}
+
+#header {
+  grid-area: name;
+  font-size: 25px;
+  font-weight: 600;
+
+  span {
+    margin-left: 30px;
+  }
+}
+
+#image {
+  grid-area: photo;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+
+#price {
+  grid-area: price;
+
+  display:grid;
+  align-items: center;
+}
+
+#description {
+  grid-area: description;
+}

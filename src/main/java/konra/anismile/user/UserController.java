@@ -26,6 +26,7 @@ public class UserController {
         Response<String> rsp = new Response<>();
 
         if(user.getPassword().equals(loggedUser.getPassword())){
+
             rsp.setStatus(Response.success);
             rsp.setItem("tokenStub");
             session.setAttribute("user", user);

@@ -1,56 +1,78 @@
 @import "../variables";
 
 .wrapper {
-  width: 70vw;
+  width: 75vw;
   height: 60vh;
   justify-self: center;
 
-  display: grid;
-  grid-template-rows: 40px 70px 1fr;
-  grid-template-columns: 40% 60%;
-  grid-template-areas: "name name" "photo price" "photo description";
-  align-items: stretch;
-  justify-items: stretch;
-
   font-family: $font;
+  color: $font-clr;
+  margin-top: 30px;
 }
+//
+//div:not(#frame) {
+//  padding: 10px;
+//}
 
-div:not(#frame) {
-  padding: 10px;
-}
-
-$img-size: 21vw;
+$img-size: 18vw;
 #frame {
   width: $img-size;
   height: $img-size;
+  border-radius: 10px;
   overflow: hidden;
-}
 
-#header {
-  grid-area: name;
-  font-size: 25px;
-  font-weight: 600;
-
-  span {
-    margin-left: 30px;
-  }
 }
 
 #image {
-  grid-area: photo;
+  width: 30%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  float: left;
+  margin-left: 4vw;
+  //border: solid 1px black;
+}
+
+#textFrame {
+  width: 50%;
+  float: right;
+  margin-right: 8vw;
+  //border: solid 1px black;
+}
+
+#line {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 35% 15% 10%;
+  align-items: stretch;
+  justify-items: stretch;
+  font-size: 24px;
+}
+
+#header {
+  font-size: 36px;
+  font-weight: 600;
+  display: grid;
+  align-items: center;
+}
+
+#price {
   display: grid;
   align-items: center;
   justify-items: center;
 }
 
-
-#price {
-  grid-area: price;
-
-  display:grid;
-  align-items: center;
+#description {
+  margin-top: 30px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
-#description {
-  grid-area: description;
+#addButton {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  border-radius: 3px;
 }

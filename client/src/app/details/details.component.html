@@ -1,17 +1,26 @@
 <div class="wrapper">
 
-  <div id="header">
-    <span>{{animal.name}}</span>
-  </div>
-
   <div id="image">
-    <div id="frame">
-      <img [src]="animal.imageUrl"/>
+    <div id="frame" #frame>
+      <img #image [src]="animal?.imageUrl"/>
     </div>
   </div>
 
-  <div id="price"><span>{{animal.price}}</span></div>
-  <div id="description">{{animal.description}}</div>
-  <div id="addButton">+</div>
+  <div id="textFrame">
+
+    <div id="line">
+
+      <div id="header">
+        <span>{{animal?.name}}</span>
+      </div>
+
+      <div id="price"><span>{{animal?.price}}</span></div>
+      <div id="addButton">+</div>
+
+    </div>
+
+    <div id="description">{{animal?.description}}</div>
+  </div>
+
 
 </div>

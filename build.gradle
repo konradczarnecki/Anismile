@@ -70,7 +70,7 @@ task buildFront {
 if(project.property('build.front') == 'true'){
 	bootRun.dependsOn buildFront
 	build.dependsOn copyWebcontent
-	jar.mustRunAfter copyWebcontent
+	compileJava.mustRunAfter copyWebcontent
 }
 
 task runJar(type: Exec) {

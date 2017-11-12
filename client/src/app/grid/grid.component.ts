@@ -22,12 +22,17 @@ export class GridComponent implements OnInit {
     window.addEventListener('scroll', () => {
 
       if(window.scrollY >= 190){
-        this.stickCategories = true;
 
-        let el: HTMLElement = document.getElementById('categories');
-        let rect = el.getBoundingClientRect();
-        el.style.top = rect.top + 'px';
-        el.style.left = rect.left + 'px';
+        if(this.stickCategories == false){
+
+          // let el: HTMLElement = document.getElementById('categories');
+          // let rect = el.getBoundingClientRect();
+          // el.style.top = rect.top + 'px';
+          // el.style.left = rect.left + 'px';
+          this.stickCategories = true;
+        }
+
+
       } else this.stickCategories = false;
     });
 

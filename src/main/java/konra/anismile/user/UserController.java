@@ -2,13 +2,12 @@ package konra.anismile.user;
 
 import konra.anismile.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@RestController()
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     UserService service;
@@ -18,27 +17,35 @@ public class UserController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/login")
+    @PostMapping(value = "/login")
     public Response<String> login(@RequestBody User loggedUser, HttpSession session) {
 
-        User user = service.getUser(loggedUser.getUsername());
+        String token = service.login(loggedUser.getUsername(), loggedUser.getPassword(), session);
+        boolean loginResult = !token.equals("access_denied") && !token.equals("user_not_found");
 
         Response<String> rsp = new Response<>();
-
-        if(user.getPassword().equals(loggedUser.getPassword())){
-
-            rsp.setStatus(Response.success);
-            rsp.setItem("tokenStub");
-            session.setAttribute("user", user);
-
-        } else rsp.setStatus(Response.failure);
+        if(loginResult) rsp.setStatus(Response.success);
+        else rsp.setStatus(Response.failure);
+        rsp.setContent(token);
 
         return rsp;
     }
 
-    @RequestMapping(value = "/register")
-    public Response<String> register(@RequestBody User newUser){
-        service.addUser(newUser);
-        return new Response<>(Response.success);
+    @PostMapping(value = "/register")
+    public Response<String> register(@RequestBody User newUser, HttpSession session){
+
+        boolean registrationResult = service.addUser(newUser);
+
+        Response<String> rsp = new Response<>();
+
+        if(registrationResult){
+
+            String token = service.login(newUser.getUsername(), newUser.getPassword(), session);
+            rsp.setStatus(Response.success);
+            rsp.setContent(token);
+
+        } else rsp.setStatus(Response.failure);
+
+        return rsp;
     }
 }

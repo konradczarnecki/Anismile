@@ -3,6 +3,7 @@ import * as anime from 'animejs';
 
 import { FadeHighlightDirective } from "../fade.directive";
 import {environment} from "../../environments/environment";
+import {LoginService} from "../login/login.service";
 
 @Component({
   selector: 'app-top',
@@ -21,7 +22,7 @@ export class TopComponent implements OnInit {
   frontLayerActive: boolean;
   changeImgInterId: number;
 
-  constructor() { }
+  constructor(public loginService: LoginService) { }
 
   ngOnInit() {
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-//!dto
 @Entity(name = "users")
 public class User {
 
@@ -18,6 +17,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "secr")
+    private String secretKey;
 
     public User(){}
 
@@ -43,5 +45,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 }

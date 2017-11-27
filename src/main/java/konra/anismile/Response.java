@@ -8,8 +8,7 @@ public class Response<T> {
     public static final String failure = "failure";
 
     private String status;
-    private T item;
-    private List<T> items;
+    private T content;
 
     public Response() {
     }
@@ -26,19 +25,11 @@ public class Response<T> {
         this.status = status;
     }
 
-    public T getItem() {
-        return item;
+    public T getContent() {
+        return content;
     }
 
-    public void setItem(T item) {
-        this.item = item;
-    }
-
-    public List<T> getItems() {
-        return items;
-    }
-
-    public void setItems(List<T> items) {
-        this.items = items;
+    public void setContent(T content) {
+        this.content = content;
     }
 }

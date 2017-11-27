@@ -11,6 +11,7 @@
     <div class="menuLink" [fade]="highlightColor">animals</div>
     <div class="menuLink" routerLink="/owned" [fade]="highlightColor">owned</div>
     <div class="menuLink" [fade]="highlightColor">smileys</div>
-    <div class="menuLink" routerLink="/login" [fade]="highlightColor">profile</div>
+    <div class="menuLink" routerLink="/login" *ngIf="!loginService.logged" [fade]="highlightColor">login</div>
+    <div class="menuLink" routerLink="/profile" *ngIf="loginService.logged"  [fade]="highlightColor">profile</div>
   </div>
 </div>

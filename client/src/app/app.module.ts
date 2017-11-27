@@ -13,9 +13,12 @@ import { FetchService } from "./fetch.service";
 import { CategoriesComponent } from './categories/categories.component';
 import { LoginComponent } from './login/login.component';
 import { DetailsComponent } from './details/details.component';
+import {LoginService} from "./login/login.service";
+import {FormsModule} from "@angular/forms";
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path : 'owned', component : GridComponent },
+  { path : 'owned', component : GridComponent, canActivate : [LoginService] },
   { path : 'login', component : LoginComponent },
   { path : 'animal/:id', component : DetailsComponent}
 ];
@@ -30,14 +33,16 @@ const routes: Routes = [
     GridComponent,
     CategoriesComponent,
     LoginComponent,
-    DetailsComponent
+    DetailsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
-  providers: [FetchService],
+  providers: [FetchService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,8 +2,8 @@
 
   <div id="column">
 
-    <input id="username" placeholder="username" classs="field">
-    <input id="password" placeholder="password" classs="field">
+    <input id="username" [ngClass]="{'invalid' : wrongCredentials}" placeholder="username" classs="field" [(ngModel)]="username">
+    <input id="password" [ngClass]="{'invalid' : wrongCredentials}" placeholder="password" classs="field" [(ngModel)]="password">
 
     <div id="buttons">
       <div id="login" class="button" (click)="login()">submit</div>

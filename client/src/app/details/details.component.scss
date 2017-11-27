@@ -7,7 +7,13 @@
 
   font-family: $font;
   color: $font-clr;
-  margin-top: 30px;
+  margin-top: 50px;
+
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  justify-items: center;
+
+  //align-items: center;
 }
 //
 //div:not(#frame) {
@@ -20,24 +26,11 @@ $img-size: 18vw;
   height: $img-size;
   border-radius: 10px;
   overflow: hidden;
-
 }
 
-#image {
-  width: 30%;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  float: left;
-  margin-left: 4vw;
-  //border: solid 1px black;
-}
 
 #textFrame {
-  width: 50%;
-  float: right;
-  margin-right: 8vw;
-  //border: solid 1px black;
+  width: 100%;
 }
 
 #line {
@@ -48,6 +41,7 @@ $img-size: 18vw;
   align-items: stretch;
   justify-items: stretch;
   font-size: 24px;
+
 }
 
 #header {
@@ -60,7 +54,8 @@ $img-size: 18vw;
 #price {
   display: grid;
   align-items: center;
-  justify-items: center;
+  justify-items: left;
+  font-size: 40px;
 }
 
 #description {
@@ -70,9 +65,16 @@ $img-size: 18vw;
 }
 
 #addButton {
+  width: 80px;
+
   display: grid;
   align-items: center;
   justify-items: center;
 
   border-radius: 3px;
+  font-size: 40px;
+  //font-weight: 700;
+
+  background: $highlight-clr;
+  color: white;
 }

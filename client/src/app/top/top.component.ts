@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as anime from 'animejs';
 
-import { FadeHighlightDirective } from "../fade.directive";
 import {environment} from "../../environments/environment";
 import {LoginService} from "../login/login.service";
 
@@ -14,8 +13,6 @@ export class TopComponent implements OnInit {
 
   @ViewChild('bannerBack') bannerBack: ElementRef;
   @ViewChild('bannerFront') bannerFront: ElementRef;
-
-  highlightColor = 'rgba(149, 112, 160, 0.05)';
 
   duration = 50000;
   transitionTime = 2000;
@@ -39,7 +36,7 @@ export class TopComponent implements OnInit {
 
     anime({
       targets : [this.bannerFront.nativeElement, this.bannerBack.nativeElement],
-      translateX : [0, -950],
+      translateX : [0, -650],
       translateY : [0, -450],
       duration : this.duration,
       easing : 'linear',

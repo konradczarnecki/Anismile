@@ -11,7 +11,11 @@ export class LoginService implements CanActivate {
 
   constructor(private http: Http) {
 
-    this.logged = false;
+    const token: string = localStorage.getItem('token');
+
+    console.log(token);
+    if(token) this.logged = true;
+    else this.logged = false;
   }
 
   login(username: string, password: string): Promise<boolean> {

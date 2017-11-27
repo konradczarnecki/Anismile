@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  font-family: 'Karla';
+  font-family: $font2s;
 }
 
 $input-w: 400px;
@@ -26,7 +26,7 @@ input {
   height: $input-h;
   border-radius: 3px;
   border: solid 1px $clr;
-  color: $font-clr;
+  color: $clr;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -34,7 +34,8 @@ input {
 
 .button:hover {
   color: white;
-  background-color: $clr;
+  background-color: $highlight-clr;
+  border-color: $highlight-clr;
   cursor: pointer;
 }
 
@@ -51,7 +52,7 @@ input {
 }
 
 #username {
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 #password {
@@ -74,9 +75,6 @@ input {
   box-shadow: 1px 1px 5px rgba(198, 0, 0, 0.26);
 }
 
-input, .button {
-  box-shadow: 1px 1px 5px rgba(165, 165, 165, 0.56);
-}
 
 
 

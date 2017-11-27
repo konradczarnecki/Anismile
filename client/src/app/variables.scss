@@ -1,15 +1,19 @@
 $main-clr: grey;
 $light-clr: lightblue;
-$highlight-clr: rgba(240, 128, 128, 0.16);
+$highlight-clr: rgba(29, 143, 15, 0.65);
+$h2: rgba(34, 126, 10, 0.04);
 $banner-clr: rgba(149, 112, 160, 0.2);
 $font-clr: rgba(122, 122, 122, 0.8);
 $other-clr: rgb(252, 232, 255);
-$clr: rgba(82, 41, 64, 0.67);
+$clr: rgba(172, 172, 172, 0.69);
 
 
 $font: 'Karla';
-$url: 'https://fonts.googleapis.com/css?family=' + $font;
-@import url($url);
+$font2:'Noto+Sans';
+$font2s: 'Noto Sans';
+$url: 'https://fonts.googleapis.com/css?family=';
+@import url($url + $font);
+@import url($url + $font2);
 
 $tile-width: 150px;
 $tile-height: 190px;

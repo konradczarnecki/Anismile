@@ -12,9 +12,6 @@ export class DetailsComponent implements OnInit, AfterViewInit {
 
   animal: Animal;
 
-  @ViewChild('image') image: ElementRef;
-  @ViewChild('frame') frame: ElementRef;
-
   constructor(private route: ActivatedRoute, private fetchService: FetchService) { }
 
   ngOnInit() {
@@ -26,26 +23,7 @@ export class DetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.positionImage();
   }
 
-  positionImage(){
-
-    let img = this.image.nativeElement;
-    let smaller = img.width < img.height ? 'Width' : 'Height';
-    let higher = smaller === 'Width' ? 'Height' : 'Width';
-
-    let frameDimensions = {
-      forSmaller : this.frame.nativeElement['offset' + smaller],
-      forHigher : this.frame.nativeElement['offset' + higher]
-    };
-
-    img[smaller.toLowerCase()] = frameDimensions.forSmaller;
-
-    let offset = (img[higher.toLowerCase()] / 2 - frameDimensions.forHigher / 2);
-    console.log(offset);
-
-    img.style.transform = `translate(-${offset}px, 0)`
-  }
 }
 

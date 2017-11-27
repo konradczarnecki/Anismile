@@ -12,22 +12,20 @@
   display: grid;
   grid-template-columns: 30% 1fr;
   justify-items: center;
-
-  //align-items: center;
 }
-//
-//div:not(#frame) {
-//  padding: 10px;
-//}
 
-$img-size: 18vw;
+$img-size: 20vw;
 #frame {
   width: $img-size;
   height: $img-size;
   border-radius: 10px;
   overflow: hidden;
+  justify-self: left;
 }
 
+#frame:hover {
+  cursor: pointer;
+}
 
 #textFrame {
   width: 100%;
@@ -37,11 +35,10 @@ $img-size: 18vw;
   width: 100%;
 
   display: grid;
-  grid-template-columns: 35% 15% 10%;
+  grid-template-columns: 30% 1fr 210px;
   align-items: stretch;
   justify-items: stretch;
   font-size: 24px;
-
 }
 
 #header {
@@ -51,30 +48,78 @@ $img-size: 18vw;
   align-items: center;
 }
 
-#price {
-  display: grid;
-  align-items: center;
-  justify-items: left;
-  font-size: 40px;
-}
-
 #description {
   margin-top: 30px;
   text-align: justify;
   text-justify: inter-word;
 }
 
+#buy {
+
+  border: solid 1px $highlight-clr;
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 80px 130px;
+  cursor: pointer;
+}
+
 #addButton {
-  width: 80px;
+  width: 100%;
 
   display: grid;
   align-items: center;
   justify-items: center;
 
-  border-radius: 3px;
+  border-radius: 3px 0 0 3px;
   font-size: 40px;
-  //font-weight: 700;
+  line-height: 40px;
 
   background: $highlight-clr;
   color: white;
+  z-index: 2;
+  user-select: none;
+  cursor: pointer;
 }
+
+#price {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  font-size: 40px;
+}
+
+#buy:hover {
+
+  #price {
+    background-color: $h2;
+  }
+}
+
+#buy:active {
+
+  #addButton {
+    background: $h3;
+  }
+}
+
+#dim {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 3;
+  pointer-events: none;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.clickHighlight:active {
+  background: $highlight-clr;
+  color: white;
+}
+
+

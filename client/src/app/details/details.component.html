@@ -1,7 +1,7 @@
 <div class="wrapper">
 
 
-    <div id="frame" #frame>
+    <div id="frame" (mouseover)="showPhoto()" (mouseleave)=" photoVisible = false" #frame>
       <img #image [src]="animal?.imageUrl"/>
     </div>
 
@@ -14,13 +14,17 @@
         <span>{{animal?.name}}</span>
       </div>
 
-      <div id="addButton">+</div>
-      <div id="price"><span>{{animal?.price}}</span></div>
+      <div class="filler"></div>
+
+      <div id="buy">
+        <div id="addButton">+</div>
+        <span id="price">{{animal?.price}}</span>
+      </div>
 
     </div>
 
     <div id="description">{{animal?.description}}</div>
   </div>
-
-
 </div>
+
+<div id="dim" *ngIf="photoVisible"><img id="fullImage" [src]="animal?.imageUrl"></div>
